@@ -1,0 +1,100 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VibeKTV</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="rail">
+        <div class="brand">
+          <div class="brand-mark">VK</div>
+          <div><strong>VibeKTV</strong><span>家庭点歌系统</span></div>
+        </div>
+
+        <nav class="nav-tabs" aria-label="歌曲分类">
+          <button class="nav-tab active" data-category="全部">全部</button>
+          <button class="nav-tab" data-category="热门">热门</button>
+          <button class="nav-tab" data-category="国语">国语</button>
+          <button class="nav-tab" data-category="粤语">粤语</button>
+          <button class="nav-tab" data-category="英文">英文</button>
+          <button class="nav-tab" data-category="日语">日语</button>
+          <button class="nav-tab" data-category="收藏">收藏</button>
+          <button class="nav-tab" data-category="最近">最近</button>
+        </nav>
+
+        <section class="mini-panel">
+          <div class="section-title">音频设备</div>
+          <label class="switch-row"><span>麦克风监听</span><input id="micToggle" type="checkbox" /></label>
+          <label class="switch-row"><span>原唱模式</span><input id="vocalToggle" type="checkbox" /></label>
+          <button id="importSongBtn" class="ghost-button">导入本地歌曲</button>
+          <button id="importLyricBtn" class="ghost-button">导入 LRC 歌词</button>
+          <input id="audioFileInput" type="file" accept="audio/*,video/*" hidden />
+          <input id="lyricFileInput" type="file" accept=".lrc,text/plain" hidden />
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div><p class="eyebrow">KTV Console</p><h1>今晚唱什么？</h1></div>
+          <div class="search-box"><span>搜索</span><input id="searchInput" type="search" placeholder="输入歌名、歌手或标签" /></div>
+        </header>
+
+        <section class="content-grid">
+          <section class="song-browser">
+            <div class="section-head">
+              <div><h2>歌曲库</h2><p id="songCount">0 首可点</p></div>
+              <button id="surpriseBtn" class="accent-button">随机点歌</button>
+            </div>
+            <div id="songList" class="song-list" aria-live="polite"></div>
+          </section>
+
+          <section class="stage-panel">
+            <div class="stage-screen">
+              <div class="light-beams"></div>
+              <div class="now-playing">
+                <span id="modeBadge">伴奏</span>
+                <div><strong id="stageTitle">还没有开始播放</strong><small id="stageArtist">先点一首歌吧</small></div>
+              </div>
+              <div id="lyrics" class="lyrics"><p>欢迎来到 VibeKTV</p><p>点歌后歌词会在这里滚动</p></div>
+              <div class="stage-footer"><span id="nextSong">下一首：暂无</span><span id="timeLabel">00:00 / 00:00</span></div>
+            </div>
+
+            <div class="transport">
+              <button id="restartBtn" title="重唱">重唱</button>
+              <button id="playPauseBtn" class="primary-round" title="播放/暂停">播放</button>
+              <button id="nextBtn" title="切歌">切歌</button>
+              <div class="progress-wrap"><input id="progress" type="range" min="0" max="100" value="0" /></div>
+            </div>
+
+            <div class="mixer">
+              <label><span>音乐音量</span><input id="musicVolume" type="range" min="0" max="100" value="78" /></label>
+              <label><span>麦克风</span><input id="micVolume" type="range" min="0" max="100" value="65" /></label>
+              <label><span>混响</span><input id="reverb" type="range" min="0" max="100" value="28" /></label>
+            </div>
+          </section>
+
+          <aside class="queue-panel">
+            <div class="section-head">
+              <div><h2>已点歌曲</h2><p id="queueCount">0 首排队</p></div>
+              <button id="clearQueueBtn" class="icon-button" title="清空队列">清空</button>
+            </div>
+            <div id="queueList" class="queue-list"></div>
+            <div class="quick-actions">
+              <button id="favoriteBtn">收藏当前</button>
+              <button id="scoreBtn">开启评分</button>
+              <button id="clearHistoryBtn">清空最近</button>
+              <button id="fullscreenBtn">演唱全屏</button>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <audio id="player"></audio>
+    <script src="./app.js"></script>
+  </body>
+</html>
